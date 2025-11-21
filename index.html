@@ -1,0 +1,2317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Projects</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ==============================
+           GLOBAL STYLES
+        =============================== */
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #3498db;
+            --light: rgba(255, 255, 255, 0.92);
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --error: #e74c3c;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a3a, #2c3e50);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* ==============================
+           NAVIGATION
+        =============================== */
+        .main-nav {
+            background-color: var(--light);
+            padding: 15px 10px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto 30px;
+        }
+
+        .main-nav a {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .main-nav a:hover {
+            color: var(--accent);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        /* ==============================
+           SECTIONS
+        =============================== */
+        .section {
+            display: none;
+            background-color: var(--light);
+            padding: 30px 25px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* ==============================
+           HEADERS
+        =============================== */
+        header {
+            text-align: center;
+            background-color: var(--light);
+            padding: 30px 20px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            transition: var(--transition);
+        }
+
+        header:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 2.4rem;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+
+        /* Back to Home Button */
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            background-color: var(--accent);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            margin-top: 12px;
+        }
+
+        .back-btn:hover {
+            background-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        /* ==============================
+           HOME PAGE
+        =============================== */
+        .home-section h2 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 6px;
+            margin-top: 20px;
+        }
+
+        .home-section p {
+            color: var(--secondary);
+            margin-bottom: 18px;
+            font-size: 1rem;
+        }
+
+        .works-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .works-list li {
+            background-color: rgba(52, 152, 219, 0.05);
+            margin: 18px 0;
+            padding: 22px;
+            border-radius: 14px;
+            text-align: left;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+            transition: var(--transition);
+        }
+
+        .works-list li:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .works-list li h3 {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-bottom: 6px;
+        }
+
+        .works-list li em {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--secondary);
+            margin-bottom: 12px;
+        }
+
+        .project-btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            margin-top: 8px;
+        }
+
+        .project-btn:hover {
+            background-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        /* ==============================
+           CALCULATOR
+        =============================== */
+        .calculator {
+            width: min(420px, 96vw);
+            background: var(--light);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 18px;
+            margin: 10px auto;
+        }
+
+        .display {
+            background: linear-gradient(180deg, #f7fbff, #ffffff);
+            border-radius: 12px;
+            padding: 18px;
+            font-size: 1.6rem;
+            color: var(--primary);
+            text-align: right;
+            min-height: 56px;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.02);
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            margin-bottom: 12px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .btn {
+            background: #f4fbff;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(18,38,63,0.06);
+            transition: transform 0.08s ease, box-shadow 0.08s;
+            user-select: none;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 6px rgba(18,38,63,0.06);
+        }
+
+        .btn-op {
+            background: linear-gradient(180deg, var(--accent), var(--primary));
+            color: white;
+            font-weight: 600;
+        }
+
+        .btn-eq {
+            background: linear-gradient(180deg, var(--primary), #1a4578);
+            color: white;
+            font-weight: 700;
+            grid-column: 4 / 5;
+            grid-row: 5 / 6;
+        }
+
+        .btn-zero {
+            grid-column: 1 / 3;
+        }
+
+        .btn-ac {
+            background: #ffdede;
+            color: #7a1a1a;
+            font-weight: 600;
+        }
+
+        .btn-del {
+            background: #fff4db;
+            color: #6a4d00;
+            font-weight: 600;
+        }
+
+        /* ==============================
+           DIGITAL CLOCK
+        =============================== */
+        .clock-app {
+            display: flex;
+            width: 90%;
+            max-width: 1000px;
+            background: rgba(30, 45, 60, 0.85);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(0, 200, 255, 0.15);
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            width: 240px;
+            background: rgba(25, 35, 50, 0.95);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #9ae6ff;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .sidebar .tab {
+            background: none;
+            border: 1px solid transparent;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            color: #d3e8ff;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.25s ease;
+        }
+
+        .sidebar .tab:hover {
+            background: rgba(0, 200, 255, 0.1);
+        }
+
+        .sidebar .tab.active {
+            border: 1px solid #00cfff;
+            background: linear-gradient(90deg, #003b59, #005980);
+            color: #eafcff;
+        }
+
+        .clock-main {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .clock-view {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            opacity: 0;
+            transform: scale(0.98);
+            transition: all 0.3s ease;
+        }
+
+        .clock-view.active {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .analog-clock {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border: 4px solid #00cfff;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 15px #00cfff, inset 0 0 25px rgba(0, 200, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            transform: translateX(-50%) rotate(0deg);
+            background: #00cfff;
+            border-radius: 2px;
+            transition: transform 0.05s linear;
+        }
+
+        .hand.hour {
+            width: 4px;
+            height: 35px;
+            background: #7ae6ff;
+        }
+
+        .hand.minute {
+            width: 3px;
+            height: 50px;
+            background: #00d5ff;
+        }
+
+        .hand.second {
+            width: 2px;
+            height: 60px;
+            background: #ff4d4d;
+        }
+
+        .center-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #00cfff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #00cfff;
+        }
+
+        #rt-time {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #7ae6ff;
+            text-shadow: 0 0 15px #00cfff, 0 0 25px #00aaff;
+        }
+
+        #rt-date {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: #b9d7ea;
+        }
+
+        #t-display, #sw-display {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            color: #00e6ff;
+            text-shadow: 0 0 12px #00aaff;
+        }
+
+        .clock-view input, .clock-view button {
+            margin: 0.4rem;
+            padding: 0.6rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .clock-view input {
+            width: 80px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.08);
+            color: #eaf6ff;
+            outline: none;
+        }
+
+        .clock-view button {
+            background: #00bfff;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.25s;
+        }
+
+        .clock-view button:hover {
+            background: #009cd3;
+        }
+
+        #alarm-time {
+            width: 20%;
+        }
+
+        #alarm-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        #alarm-list li {
+            padding: 0.4rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ==============================
+           QUIZ APP
+        =============================== */
+        .quiz-container {
+            background: var(--light);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            min-height: 80vh;
+            position: relative;
+            align-items: center;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .quiz-header h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .quiz-header p {
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .quiz-progress {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            height: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-progress-bar {
+            height: 100%;
+            background-color: var(--accent);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .quiz-question {
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .quiz-option {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .quiz-option:hover {
+            background: #e9ecef;
+            border-color: var(--accent);
+        }
+
+        .quiz-option.selected {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .quiz-option.correct {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+
+        .quiz-option.incorrect {
+            background: var(--error);
+            color: white;
+            border-color: var(--error);
+        }
+
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+
+        .quiz-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .quiz-btn-primary:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .quiz-btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .quiz-btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .quiz-result {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .quiz-result h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .quiz-score {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 20px 0;
+        }
+
+        .quiz-feedback {
+            font-size: 18px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .quiz-details {
+            text-align: left;
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .quiz-details h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .quiz-details ul {
+            list-style-type: none;
+        }
+
+        .quiz-details li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .quiz-details li:last-child {
+            border-bottom: none;
+        }
+
+        /* ==============================
+           REGISTRATION FORM
+        =============================== */
+        .form-wrapper {
+            width: 100%;
+            max-width: 850px;
+            background: var(--light);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-in-out;
+            margin: 0 auto;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 35px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+        }
+
+        .form-header h1 {
+            font-size: 36px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-header p {
+            opacity: 0.9;
+            font-size: 18px;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-body {
+            padding: 45px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px 18px;
+            border: 2px solid #e1e5ee;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: var(--transition);
+            outline: none;
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--dark);
+        }
+
+        .form-control:focus {
+            border-color: var(--accent);
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.25);
+        }
+
+        .form-control.inputting {
+            animation: greenGlow 1.5s infinite alternate;
+        }
+
+        @keyframes greenGlow {
+            from {
+                box-shadow: 0 0 5px rgba(39, 174, 96, 0.5);
+                border-color: rgba(39, 174, 96, 0.7);
+            }
+            to {
+                box-shadow: 0 0 15px rgba(39, 174, 96, 0.8);
+                border-color: rgba(39, 174, 96, 1);
+            }
+        }
+
+        .form-control.error {
+            border-color: var(--error);
+            animation: shake 0.5s, redGlow 1.5s infinite alternate;
+        }
+
+        @keyframes redGlow {
+            from {
+                box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+            }
+            to {
+                box-shadow: 0 0 15px rgba(231, 76, 60, 0.8);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+
+        .form-control.success {
+            border-color: var(--success);
+            box-shadow: 0 6px 15px rgba(39, 174, 96, 0.2);
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 14px;
+            margin-top: 8px;
+            position: absolute;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: var(--transition);
+        }
+
+        .form-control.error + .error-message {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 25px;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .radio-option:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .radio-option input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 30px 0;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(52, 152, 219, 0.05);
+            transition: var(--transition);
+        }
+
+        .checkbox-container:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .checkbox-container input {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+        }
+
+        .checkbox-container label {
+            margin-bottom: 0;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .age-display {
+            margin-top: 10px;
+            font-size: 15px;
+            color: var(--accent);
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 10px 15px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            display: inline-block;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 18px 32px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 1px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.7s;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:active {
+            transform: translateY(-2px);
+        }
+
+        .success-message {
+            opacity: 0;
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.15) 0%, rgba(46, 204, 113, 0.1) 100%);
+            color: var(--success);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+            border: 1px solid rgba(39, 174, 96, 0.3);
+            transform: translateY(10px);
+            transition: var(--transition);
+        }
+
+        .success-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .form-section-title {
+            grid-column: 1 / -1;
+            font-size: 22px;
+            font-weight: 700;
+            margin: 25px 0 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(52, 152, 219, 0.3);
+            color: var(--primary);
+            position: relative;
+        }
+
+        .form-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+        
+        .course-select-container {
+            position: relative;
+        }
+        
+        .course-select-container::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            right: 18px;
+            transform: translateY(-50%);
+            color: var(--accent);
+            pointer-events: none;
+            font-size: 14px;
+        }
+        
+        .form-control.select {
+            appearance: none;
+            cursor: pointer;
+        }
+        
+        .form-control.select option {
+            padding: 12px;
+        }
+        
+        .icon-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent) 0%, #2980b9 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+        }
+        
+        .info-text {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 16px;
+            color: #7f8c8d;
+            margin: 10px 0 30px;
+            padding: 15px;
+            background: rgba(52, 152, 219, 0.05);
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+
+        /* ==============================
+           RESPONSIVE DESIGN
+        =============================== */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-wrapper {
+                margin: 15px;
+            }
+
+            .form-body {
+                padding: 30px;
+            }
+
+            .form-header {
+                padding: 25px 20px;
+            }
+
+            .form-header h1 {
+                font-size: 28px;
+            }
+
+            .form-header p {
+                font-size: 16px;
+            }
+
+            .form-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+
+            .form-control {
+                padding: 14px 16px;
+                font-size: 16px;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn {
+                padding: 16px 24px;
+                font-size: 16px;
+            }
+
+            .form-section-title {
+                font-size: 20px;
+            }
+
+            .clock-app {
+                flex-direction: column;
+                width: 95%;
+            }
+
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .clock-main {
+                padding: 1.5rem;
+            }
+
+            #rt-time {
+                font-size: 2.8rem;
+            }
+
+            .analog-clock {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 1rem;
+            }
+
+            .quiz-controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .quiz-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .form-wrapper {
+                margin: 10px;
+            }
+
+            .form-body {
+                padding: 20px;
+            }
+
+            .form-header {
+                padding: 20px 15px;
+            }
+
+            .form-header h1 {
+                font-size: 24px;
+            }
+
+            .form-header p {
+                font-size: 14px;
+            }
+
+            .form-control {
+                padding: 12px 14px;
+                font-size: 16px;
+            }
+
+            .btn {
+                padding: 14px 20px;
+                font-size: 16px;
+            }
+
+            .form-section-title {
+                font-size: 18px;
+            }
+
+            .calculator {
+                width: 96vw;
+            }
+
+            .display {
+                font-size: 1.3rem;
+                padding: 12px;
+                min-height: 48px;
+            }
+
+            .btn {
+                padding: 12px;
+                font-size: 1rem;
+                border-radius: 8px;
+            }
+
+            .quiz-question {
+                font-size: 18px;
+            }
+            
+            .quiz-option {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <a href="#" onclick="showSection('home')">Home</a>
+        <a href="#" onclick="showSection('calculator')">Calculator</a>
+        <a href="#" onclick="showSection('digital-clock')">Digital Clock</a>
+        <a href="#" onclick="showSection('quiz-app')">Quiz App</a>
+        <a href="#" onclick="showSection('registration-form')">Registration Form</a>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="section active">
+        <header>
+            <h1>Collaborative Projects</h1>
+            <p>The Collective of Dreamers: A reflection of what we achieve together and the individual skills that make it possible.</p>
+        </header>
+
+        <!-- Works Section -->
+        <div>
+            <h2>Our Projects</h2>
+            <p>Explore these interactive web applications that demonstrate different aspects of front-end development.</p>
+
+            <ul class="works-list">
+                <li>
+                    <h3>Project 1: Responsive Student Registration Form</h3>
+                    <em>A fully responsive form with comprehensive validation, demonstrating HTML/CSS layout skills and JavaScript form validation.</em>
+                    <br><a href="#" class="project-btn" onclick="showSection('registration-form')">View Project</a>
+                </li>
+
+                <li>
+                    <h3>Project 2: Digital Clock with Multiple Features</h3>
+                    <em>An interactive digital clock with additional timer, stopwatch, and alarm functionality.</em>
+                    <br><a href="#" class="project-btn" onclick="showSection('digital-clock')">View Project</a>
+                </li>
+
+                <li>
+                    <h3>Project 3: Simple Calculator</h3>
+                    <em>A clean, functional calculator with basic arithmetic operations and responsive design.</em>
+                    <br><a href="#" class="project-btn" onclick="showSection('calculator')">View Project</a>
+                </li>
+
+                <li>
+                    <h3>Project 4: JavaScript Quiz App</h3>
+                    <em>An interactive quiz application with jQuery functionality for showing/hiding questions and score tallying.</em>
+                    <br><a href="#" class="project-btn" onclick="showSection('quiz-app')">View Project</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculator" class="section">
+        <header>
+            <h1>Simple Calculator</h1>
+            <p>Quickly perform basic arithmetic calculations. Perfect for everyday use!</p>
+            <a href="#" class="back-btn" onclick="showSection('home')">Back to Home</a>
+        </header>
+
+        <main class="calculator" aria-label="Simple calculator">
+            <div class="display" id="display" role="textbox" aria-readonly="true" aria-label="Calculator display">0</div>
+
+            <div class="buttons" role="group" aria-label="Calculator buttons">
+                <!-- Row 1 -->
+                <button class="btn btn-ac" data-action="clear" aria-label="clear (Escape)">AC</button>
+                <button class="btn btn-del" data-action="delete" aria-label="delete (Backspace)">⌫</button>
+                <button class="btn btn-paren" data-value="(" aria-label="left parenthesis">(</button>
+                <button class="btn btn-op" data-value="/" aria-label="divide">÷</button>
+
+                <!-- Row 2 -->
+                <button class="btn" data-value="7" aria-label="seven">7</button>
+                <button class="btn" data-value="8" aria-label="eight">8</button>
+                <button class="btn" data-value="9" aria-label="nine">9</button>
+                <button class="btn btn-op" data-value="*" aria-label="multiply">×</button>
+
+                <!-- Row 3 -->
+                <button class="btn" data-value="4" aria-label="four">4</button>
+                <button class="btn" data-value="5" aria-label="five">5</button>
+                <button class="btn" data-value="6" aria-label="six">6</button>
+                <button class="btn btn-op" data-value="-" aria-label="minus">−</button>
+
+                <!-- Row 4 -->
+                <button class="btn" data-value="1" aria-label="one">1</button>
+                <button class="btn" data-value="2" aria-label="two">2</button>
+                <button class="btn" data-value="3" aria-label="three">3</button>
+                <button class="btn btn-op" data-value="+" aria-label="plus">+</button>
+
+                <!-- Row 5 -->
+                <button class="btn btn-zero" data-value="0" aria-label="zero">0</button>
+                <button class="btn" data-value="." aria-label="decimal">.</button>
+                <button class="btn btn-eq" data-action="calculate" aria-label="equals (Enter)">=</button>
+            </div>
+        </main>
+    </section>
+
+    <!-- Digital Clock Section -->
+    <section id="digital-clock" class="section">
+        <header>
+            <h1>Digital Clock</h1>
+            <p>A multi-functional clock with timer, stopwatch, and alarm features</p>
+            <a href="#" class="back-btn" onclick="showSection('home')">Back to Home</a>
+        </header>
+        
+        <div class="clock-app">
+            <aside class="sidebar">
+                <h2>Digital Clock</h2>
+                <nav>
+                    <button class="tab active" data-view="clock">🕒 Clock</button>
+                    <button class="tab" data-view="timer">⏳ Timer</button>
+                    <button class="tab" data-view="stopwatch">⏱️ Stopwatch</button>
+                    <button class="tab" data-view="alarm">🔔 Alarm</button>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="clock-main">
+                <!-- Clock -->
+                <section id="clock" class="clock-view active">
+                    <div class="analog-clock">
+                        <div class="hand hour"></div>
+                        <div class="hand minute"></div>
+                        <div class="hand second"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                
+                    <h1 id="rt-time">--:--:--</h1>
+                    <p id="rt-date">Loading...</p>
+                </section>
+
+                <!-- Timer -->
+                <section id="timer" class="clock-view">
+                    <h2>⏳ Timer</h2>
+                    <div>
+                        <input type="number" id="t-min" placeholder="Min" min="0">
+                        <input type="number" id="t-sec" placeholder="Sec" min="0" max="59">
+                        <button id="t-start">Start</button>
+                        <button id="t-reset">Reset</button>
+                    </div>
+                    <h1 id="t-display">00:00</h1>
+                </section>
+
+                <!-- Stopwatch -->
+                <section id="stopwatch" class="clock-view">
+                    <h2>⏱️ Stopwatch</h2>
+                    <div>
+                        <button id="sw-start">Start</button>
+                        <button id="sw-stop">Stop</button>
+                        <button id="sw-reset">Reset</button>
+                    </div>
+                    <h1 id="sw-display">00:00.000</h1>
+                </section>
+
+                <!-- Alarm -->
+                <section id="alarm" class="clock-view">
+                    <div id="done" class="alarm-done" style="display: none;">
+                        <p>TOOT TOOT!!</p>
+                    </div>
+                    <h2>🔔 Alarm</h2>
+                    <input type="time" id="alarm-time">
+                    <button id="add-alarm">Add</button>
+                    <ul id="alarm-list"></ul>
+                </section>
+            </main>
+        </div>
+    </section>
+
+    <!-- Quiz App Section -->
+    <section id="quiz-app" class="section">
+        <header>
+            <h1>JavaScript Quiz App</h1>
+            <p>Test your knowledge with this interactive quiz featuring jQuery functionality</p>
+            <a href="#" class="back-btn" onclick="showSection('home')">Back to Home</a>
+        </header>
+
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h1>JavaScript Basics Quiz</h1>
+                <p>Test your knowledge of fundamental JavaScript concepts</p>
+            </div>
+
+            <div class="quiz-progress">
+                <div class="quiz-progress-bar" id="quiz-progress"></div>
+            </div>
+
+            <div id="quiz-content">
+                <!-- Welcome Screen -->
+                <div id="quiz-welcome" class="quiz-welcome">
+                    <div class="quiz-result">
+                        <h2>Welcome to the JavaScript Quiz!</h2>
+                        <p>This quiz will test your knowledge of JavaScript basics including variables, functions, loops, and more.</p>
+                        <p>There are 10 questions in total. Try to answer them all correctly!</p>
+                        <button id="start-quiz" class="quiz-btn quiz-btn-primary">Start Quiz</button>
+                    </div>
+                </div>
+
+                <!-- Question Screen -->
+                <div id="quiz-questions" style="display: none;">
+                    <div class="quiz-question" id="question-text"></div>
+                    <div class="quiz-options" id="question-options"></div>
+                    <div class="quiz-controls">
+                        <button id="prev-question" class="quiz-btn quiz-btn-secondary">Previous</button>
+                        <button id="next-question" class="quiz-btn quiz-btn-primary">Next</button>
+                    </div>
+                </div>
+
+                <!-- Results Screen -->
+                <div id="quiz-results" style="display: none;">
+                    <div class="quiz-result">
+                        <h2>Quiz Completed!</h2>
+                        <div class="quiz-score" id="final-score">0/10</div>
+                        <div class="quiz-feedback" id="quiz-feedback"></div>
+                        <button id="restart-quiz" class="quiz-btn quiz-btn-primary">Restart Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form Section -->
+    <section id="registration-form" class="section">
+        <div class="form-wrapper">
+            <div class="form-header">
+                <div class="icon-container">
+                    <div class="form-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                </div>
+                <h1>Student Registration</h1>
+                <p>Please complete the form below to register as a student</p>
+                <a class="back-btn" href="#" onclick="showSection('home')">Back to Home</a>
+            </div>
+
+            <div class="form-body">
+                <form id="registrationForm">
+                    <div class="form-grid">
+                        <div class="info-text">
+                            <i class="fas fa-info-circle"></i> Please fill out all required fields accurately. Your information will be kept secure.
+                        </div>
+                        
+                        <div class="form-section-title">Personal Information</div>
+                        
+                        <div class="form-group">
+                            <label for="surname"><i class="fas fa-user"></i> Surname</label>
+                            <input type="text" id="surname" name="surname" class="form-control" placeholder="Enter your surname" required>
+                            <div class="error-message">Surname is required and must contain only letters</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="firstName"><i class="fas fa-user"></i> First Name</label>
+                            <input type="text" id="firstName" name="firstName" class="form-control" placeholder="Enter your first name" required>
+                            <div class="error-message">First name is required and must contain only letters</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="middleName"><i class="fas fa-user"></i> Middle Name</label>
+                            <input type="text" id="middleName" name="middleName" class="form-control" placeholder="Enter your middle name">
+                            <div class="error-message">Middle name must contain only letters</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone"><i class="fas fa-phone"></i> Contact Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your phone number" required maxlength="11">
+                            <div class="error-message">Valid 11-digit phone number is required</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="birthdate"><i class="fas fa-birthday-cake"></i> Date of Birth</label>
+                            <input type="date" id="birthdate" name="birthdate" class="form-control" required>
+                            <div class="age-display" id="ageDisplay" style="display: none;"></div>
+                            <div class="error-message">Date of birth is required</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-venus-mars"></i> Gender</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="male" name="gender" value="male" required>
+                                    <label for="male">Male</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="female" name="gender" value="female">
+                                    <label for="female">Female</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="other" name="gender" value="other">
+                                    <label for="other">Other</label>
+                                </div>
+                            </div>
+                            <div class="error-message">Please select your gender</div>
+                        </div>
+                        
+                        <div class="form-section-title">Academic Information</div>
+                        
+                        <div class="form-group">
+                            <label for="studentId"><i class="fas fa-id-card"></i> Student Number</label>
+                            <input type="text" id="studentId" name="studentId" class="form-control" placeholder="Enter your student number (numbers only)" required>
+                            <div class="error-message">Student number is required and must contain only numbers</div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="course"><i class="fas fa-graduation-cap"></i> Select Your Course</label>
+                            <div class="course-select-container">
+                                <select id="course" name="course" class="form-control select" required>
+                                    <option value="">-- Select a Course --</option>
+                                    <option value="Bachelor of Science in Technology">Bachelor of Science in Technology</option>
+                                    <option value="Bachelor of Science in Human Resource Management">Bachelor of Science in Human Resource Management</option>
+                                    <option value="Education Major in TLE">Education Major in TLE</option>
+                                    <option value="Education Major in ICT">Education Major in ICT</option>
+                                    <option value="Education Major in Science">Education Major in Science</option>
+                                    <option value="Education General Academic">Education General Academic</option>
+                                </select>
+                            </div>
+                            <div class="error-message">Please select your course</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="yearLevel"><i class="fas fa-calendar-alt"></i> Year Level</label>
+                            <select id="yearLevel" name="yearLevel" class="form-control select" required>
+                                <option value="">Select Year Level</option>
+                                <option value="1">1st Year</option>
+                                <option value="2">2nd Year</option>
+                                <option value="3">3rd Year</option>
+                                <option value="4">4th Year</option>
+                            </select>
+                            <div class="error-message">Year level is required</div>
+                        </div>
+                        
+                        <div class="checkbox-container full-width">
+                            <input type="checkbox" id="agree" name="agree" required>
+                            <label for="agree">I agree to the terms and conditions and acknowledge the privacy policy</label>
+                            <div class="error-message">You must agree to the terms and conditions</div>
+                        </div>
+                        
+                        <div class="full-width">
+                            <button type="submit" class="btn">
+                                <i class="fas fa-paper-plane"></i> Submit Registration
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i> Registration submitted successfully! You will receive a confirmation email shortly.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Navigation function
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show the selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Quiz App Functionality
+        $(document).ready(function() {
+            // Quiz questions (10 items)
+            const quizQuestions = [
+                {
+                    question: "What does HTML stand for?",
+                    options: [
+                        "Hyper Text Markup Language",
+                        "High Tech Modern Language",
+                        "Hyper Transfer Markup Language",
+                        "Home Tool Markup Language"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Which of the following is a JavaScript data type?",
+                    options: [
+                        "Integer",
+                        "Boolean",
+                        "Character",
+                        "Float"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "What does CSS stand for?",
+                    options: [
+                        "Computer Style Sheets",
+                        "Creative Style System",
+                        "Cascading Style Sheets",
+                        "Colorful Style Sheets"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "Which method is used to add an element to the end of an array in JavaScript?",
+                    options: [
+                        "push()",
+                        "pop()",
+                        "shift()",
+                        "unshift()"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "What is the purpose of the 'this' keyword in JavaScript?",
+                    options: [
+                        "It refers to the previous object",
+                        "It refers to the current object",
+                        "It refers to the next object",
+                        "It refers to the parent object"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Which of the following is NOT a JavaScript loop?",
+                    options: [
+                        "for",
+                        "while",
+                        "do-while",
+                        "repeat-until"
+                    ],
+                    correct: 3
+                },
+                {
+                    question: "What will 'console.log(typeof null)' output in JavaScript?",
+                    options: [
+                        "null",
+                        "undefined",
+                        "object",
+                        "string"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "Which operator is used for strict equality comparison in JavaScript?",
+                    options: [
+                        "==",
+                        "===",
+                        "=",
+                        "!=="
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "What does the 'DOM' stand for in web development?",
+                    options: [
+                        "Document Object Model",
+                        "Data Object Management",
+                        "Digital Output Method",
+                        "Document Order Model"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Which function is used to parse a string to an integer in JavaScript?",
+                    options: [
+                        "parseInt()",
+                        "stringToInt()",
+                        "toInteger()",
+                        "convertToInt()"
+                    ],
+                    correct: 0
+                }
+            ];
+
+            // Quiz state variables
+            let currentQuestion = 0;
+            let score = 0;
+            let userAnswers = new Array(quizQuestions.length).fill(null);
+
+            // jQuery functions for showing/hiding quiz sections
+            function showWelcomeScreen() {
+                $('#quiz-welcome').show();
+                $('#quiz-questions').hide();
+                $('#quiz-results').hide();
+                $('#quiz-progress').css('width', '0%');
+            }
+
+            function showQuestionScreen() {
+                $('#quiz-welcome').hide();
+                $('#quiz-questions').show();
+                $('#quiz-results').hide();
+                updateProgressBar();
+                displayQuestion();
+            }
+
+            function showResultsScreen() {
+                $('#quiz-welcome').hide();
+                $('#quiz-questions').hide();
+                $('#quiz-results').show();
+                displayResults();
+            }
+
+            // Display current question
+            function displayQuestion() {
+                const question = quizQuestions[currentQuestion];
+                $('#question-text').text(question.question);
+                
+                // Clear previous options
+                $('#question-options').empty();
+                
+                // Add new options
+                question.options.forEach((option, index) => {
+                    const optionElement = $('<div>')
+                        .addClass('quiz-option')
+                        .text(option)
+                        .click(function() {
+                            // Remove selected class from all options
+                            $('.quiz-option').removeClass('selected');
+                            // Add selected class to clicked option
+                            $(this).addClass('selected');
+                            // Save user's answer
+                            userAnswers[currentQuestion] = index;
+                        });
+                    
+                    // If user has already answered this question, show their selection
+                    if (userAnswers[currentQuestion] === index) {
+                        optionElement.addClass('selected');
+                    }
+                    
+                    $('#question-options').append(optionElement);
+                });
+                
+                // Update button visibility
+                $('#prev-question').toggle(currentQuestion > 0);
+                $('#next-question').text(currentQuestion === quizQuestions.length - 1 ? 'Finish' : 'Next');
+            }
+
+            // Update progress bar
+            function updateProgressBar() {
+                const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
+                $('#quiz-progress').css('width', `${progress}%`);
+            }
+
+            // Calculate and display results
+            function displayResults() {
+                // Calculate score
+                score = 0;
+                userAnswers.forEach((answer, index) => {
+                    if (answer === quizQuestions[index].correct) {
+                        score++;
+                    }
+                });
+                
+                // Update score display
+                $('#final-score').text(`${score}/${quizQuestions.length}`);
+                
+                // Provide feedback based on score
+                let feedback = "";
+                if (score === quizQuestions.length) {
+                    feedback = "Excellent! You're a JavaScript expert!";
+                } else if (score >= quizQuestions.length * 0.7) {
+                    feedback = "Good job! You have a solid understanding of JavaScript basics.";
+                } else if (score >= quizQuestions.length * 0.5) {
+                    feedback = "Not bad! You know some JavaScript basics but could use more practice.";
+                } else {
+                    feedback = "Keep learning! JavaScript takes time to master.";
+                }
+                
+                $('#quiz-feedback').text(feedback);
+            }
+
+            // Event handlers
+            $('#start-quiz').click(function() {
+                showQuestionScreen();
+            });
+
+            $('#prev-question').click(function() {
+                if (currentQuestion > 0) {
+                    currentQuestion--;
+                    displayQuestion();
+                }
+            });
+
+            $('#next-question').click(function() {
+                // If user hasn't answered current question, show alert
+                if (userAnswers[currentQuestion] === null) {
+                    alert('Please select an answer before continuing.');
+                    return;
+                }
+                
+                if (currentQuestion < quizQuestions.length - 1) {
+                    currentQuestion++;
+                    displayQuestion();
+                } else {
+                    showResultsScreen();
+                }
+            });
+
+            $('#restart-quiz').click(function() {
+                // Reset quiz state
+                currentQuestion = 0;
+                score = 0;
+                userAnswers = new Array(quizQuestions.length).fill(null);
+                
+                // Show welcome screen
+                showWelcomeScreen();
+            });
+
+            // Initialize quiz
+            showWelcomeScreen();
+
+            // Registration Form Validation
+            function isValidName(name) {
+                return /^[A-Za-z\s]+$/.test(name);
+            }
+
+            function validateField(field) {
+                const $field = $(field);
+                const errorMessage = $field.next('.error-message');
+                const fieldId = $field.attr('id');
+                
+                if ($field.val().trim() === '') {
+                    if ($field.attr('required')) {
+                        $field.removeClass('success').addClass('error');
+                        errorMessage.text($field.attr('placeholder') + ' is required');
+                    } else {
+                        $field.removeClass('error').addClass('success');
+                        errorMessage.text('');
+                    }
+                    return;
+                }
+                
+                if (fieldId === 'surname' || fieldId === 'firstName' || fieldId === 'middleName') {
+                    if (!isValidName($field.val().trim())) {
+                        $field.removeClass('success').addClass('error');
+                        errorMessage.text('Only letters and spaces are allowed');
+                    } else {
+                        $field.removeClass('error').addClass('success');
+                        errorMessage.text('');
+                    }
+                } else if (fieldId === 'studentId') {
+                    if (!/^\d+$/.test($field.val().trim())) {
+                        $field.removeClass('success').addClass('error');
+                        errorMessage.text('Student number must contain only numbers');
+                    } else {
+                        $field.removeClass('error').addClass('success');
+                        errorMessage.text('');
+                    }
+                } else {
+                    $field.removeClass('error').addClass('success');
+                    errorMessage.text('');
+                }
+            }
+
+            // Apply validation to required fields
+            $('.form-control[required]').each(function() {
+                const field = $(this);
+                
+                field.on('keyup', function() {
+                    $(this).addClass('inputting');
+                    validateField(this);
+                });
+                
+                field.on('blur', function() {
+                    $(this).removeClass('inputting');
+                    validateField(this);
+                });
+                
+                field.on('focus', function() {
+                    $(this).addClass('inputting');
+                });
+            });
+
+            // Middle name validation (not required)
+            $('#middleName').on('keyup blur', function() {
+                $(this).addClass('inputting');
+                validateField(this);
+            });
+
+            // Phone validation
+            $('#phone').on('keyup blur', function() {
+                const $this = $(this);
+                const errorMessage = $this.next('.error-message');
+                
+                if ($this.val().trim() === '') {
+                    $this.removeClass('success').addClass('error');
+                    errorMessage.text('Phone number is required');
+                } else if ($this.val().length !== 11 || !/^\d+$/.test($this.val())) {
+                    $this.removeClass('success').addClass('error');
+                    errorMessage.text('Valid 11-digit phone number is required (numbers only)');
+                } else {
+                    $this.removeClass('error').addClass('success');
+                    errorMessage.text('');
+                }
+            });
+
+            // Form submission
+            $('#registrationForm').on('submit', function(e) {
+                e.preventDefault();
+                let isValid = true;
+                
+                $('.form-control[required]').each(function() {
+                    validateField(this);
+                    if ($(this).hasClass('error')) {
+                        isValid = false;
+                    }
+                });
+                
+                if ($('#middleName').val().trim() !== '' && !isValidName($('#middleName').val().trim())) {
+                    $('#middleName').addClass('error');
+                    isValid = false;
+                }
+                
+                if ($('#phone').val().length !== 11 || !/^\d+$/.test($('#phone').val())) {
+                    $('#phone').addClass('error');
+                    isValid = false;
+                }
+                
+                if ($('#studentId').val().trim() !== '' && !/^\d+$/.test($('#studentId').val().trim())) {
+                    $('#studentId').addClass('error');
+                    isValid = false;
+                }
+                
+                const courseSelected = $('#course').val();
+                if (!courseSelected) {
+                    $('#course').addClass('error');
+                    isValid = false;
+                } else {
+                    $('#course').removeClass('error').addClass('success');
+                }
+                
+                const genderSelected = $('input[name="gender"]:checked').length > 0;
+                if (!genderSelected) {
+                    $('.radio-group').parent().find('.error-message').text('Please select your gender');
+                    isValid = false;
+                } else {
+                    $('.radio-group').parent().find('.error-message').text('');
+                }
+                
+                if (!$('#agree').is(':checked')) {
+                    $('.checkbox-container').find('.error-message').text('You must agree to the terms and conditions');
+                    isValid = false;
+                } else {
+                    $('.checkbox-container').find('.error-message').text('');
+                }
+                
+                if (isValid) {
+                    $('#successMessage').addClass('show');
+                    
+                    setTimeout(function() {
+                        $('#registrationForm')[0].reset();
+                        $('.form-control').removeClass('success error inputting');
+                        $('#ageDisplay').text('').hide();
+                        $('#successMessage').removeClass('show');
+                    }, 5000);
+                } else {
+                    $('.form-wrapper').css('animation', 'shake 0.5s');
+                    setTimeout(function() {
+                        $('.form-wrapper').css('animation', '');
+                    }, 500);
+                }
+            });
+
+            // Age calculation
+            $('#birthdate').on('change', function() {
+                if ($(this).val()) {
+                    const birthDate = new Date($(this).val());
+                    const today = new Date();
+                    let age = today.getFullYear() - birthDate.getFullYear();
+                    const monthDiff = today.getMonth() - birthDate.getMonth();
+                    
+                    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                        age--;
+                    }
+                    
+                    $('#ageDisplay').text(`Age: ${age} years`).show();
+                    validateField(this);
+                } else {
+                    $('#ageDisplay').text('').hide();
+                }
+            });
+
+            // Input restrictions
+            $('#phone').on('input', function() {
+                $(this).val($(this).val().replace(/\D/g, ''));
+                if ($(this).val().length > 11) {
+                    $(this).val($(this).val().slice(0, 11));
+                }
+            });
+            
+            $('#studentId').on('input', function() {
+                $(this).val($(this).val().replace(/\D/g, ''));
+            });
+
+            $('#surname, #firstName, #middleName').on('input', function() {
+                $(this).val($(this).val().replace(/[0-9]/g, ''));
+            });
+
+            // Form control focus effects
+            $('.form-control').on('focus', function() {
+                $(this).parent().find('label').css('color', '#3498db');
+                $(this).addClass('inputting');
+            }).on('blur', function() {
+                $(this).parent().find('label').css('color', '#2c3e50');
+                $(this).removeClass('inputting');
+            });
+            
+            // Select validation
+            $('#course, #yearLevel').on('change', function() {
+                if ($(this).val()) {
+                    $(this).removeClass('error').addClass('success');
+                } else {
+                    $(this).removeClass('success').addClass('error');
+                }
+            });
+
+            // Calculator functionality
+            const display = document.getElementById('display');
+            const buttons = document.querySelectorAll('.btn');
+            let currentValue = '0';
+            let previousValue = '';
+            let operator = null;
+            let waitingForNewValue = false;
+
+            function updateDisplay() {
+                display.textContent = currentValue;
+            }
+
+            function inputNumber(num) {
+                if (waitingForNewValue) {
+                    currentValue = num;
+                    waitingForNewValue = false;
+                } else {
+                    currentValue = currentValue === '0' ? num : currentValue + num;
+                }
+            }
+
+            function inputDecimal() {
+                if (waitingForNewValue) {
+                    currentValue = '0.';
+                    waitingForNewValue = false;
+                } else if (currentValue.indexOf('.') === -1) {
+                    currentValue += '.';
+                }
+            }
+
+            function handleOperator(nextOperator) {
+                const inputValue = parseFloat(currentValue);
+
+                if (operator && waitingForNewValue) {
+                    operator = nextOperator;
+                    return;
+                }
+
+                if (previousValue === '') {
+                    previousValue = inputValue;
+                } else if (operator) {
+                    const result = calculate(previousValue, inputValue, operator);
+                    currentValue = `${parseFloat(result.toFixed(7))}`;
+                    previousValue = result;
+                }
+
+                waitingForNewValue = true;
+                operator = nextOperator;
+            }
+
+            function calculate(first, second, operator) {
+                switch (operator) {
+                    case '+': return first + second;
+                    case '-': return first - second;
+                    case '*': return first * second;
+                    case '/': return first / second;
+                    default: return second;
+                }
+            }
+
+            function resetCalculator() {
+                currentValue = '0';
+                previousValue = '';
+                operator = null;
+                waitingForNewValue = false;
+            }
+
+            function deleteLast() {
+                if (currentValue.length > 1) {
+                    currentValue = currentValue.slice(0, -1);
+                } else {
+                    currentValue = '0';
+                }
+            }
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const { action, value } = button.dataset;
+
+                    if (action) {
+                        switch (action) {
+                            case 'clear':
+                                resetCalculator();
+                                break;
+                            case 'delete':
+                                deleteLast();
+                                break;
+                            case 'calculate':
+                                if (operator && !waitingForNewValue) {
+                                    handleOperator(null);
+                                    operator = null;
+                                }
+                                break;
+                        }
+                    } else if (value) {
+                        if (['+', '-', '*', '/'].includes(value)) {
+                            handleOperator(value);
+                        } else if (value === '.') {
+                            inputDecimal();
+                        } else {
+                            inputNumber(value);
+                        }
+                    }
+
+                    updateDisplay();
+                });
+            });
+
+            updateDisplay();
+
+            // Digital Clock functionality
+            const clockTabs = document.querySelectorAll('.tab');
+            const clockViews = document.querySelectorAll('.clock-view');
+
+            clockTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetView = tab.dataset.view;
+                    
+                    clockTabs.forEach(t => t.classList.remove('active'));
+                    clockViews.forEach(v => v.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    document.getElementById(targetView).classList.add('active');
+                });
+            });
+
+            // Real-time clock
+            function updateClock() {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString();
+                const dateString = now.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                
+                document.getElementById('rt-time').textContent = timeString;
+                document.getElementById('rt-date').textContent = dateString;
+                
+                // Update analog clock
+                const seconds = now.getSeconds();
+                const minutes = now.getMinutes();
+                const hours = now.getHours() % 12;
+                
+                const secondDeg = (seconds / 60) * 360;
+                const minuteDeg = (minutes / 60) * 360 + (seconds / 60) * 6;
+                const hourDeg = (hours / 12) * 360 + (minutes / 60) * 30;
+                
+                document.querySelector('.hand.second').style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+                document.querySelector('.hand.minute').style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+                document.querySelector('.hand.hour').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+            }
+            
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            // Timer functionality
+            let timerInterval;
+            let timerTime = 0;
+            let timerRunning = false;
+
+            document.getElementById('t-start').addEventListener('click', function() {
+                if (timerRunning) {
+                    clearInterval(timerInterval);
+                    timerRunning = false;
+                    this.textContent = 'Start';
+                } else {
+                    const minutes = parseInt(document.getElementById('t-min').value) || 0;
+                    const seconds = parseInt(document.getElementById('t-sec').value) || 0;
+                    timerTime = minutes * 60 + seconds;
+                    
+                    if (timerTime > 0) {
+                        timerRunning = true;
+                        this.textContent = 'Pause';
+                        
+                        timerInterval = setInterval(function() {
+                            timerTime--;
+                            
+                            if (timerTime <= 0) {
+                                clearInterval(timerInterval);
+                                timerRunning = false;
+                                document.getElementById('t-start').textContent = 'Start';
+                                document.getElementById('t-display').textContent = '00:00';
+                                alert('Timer finished!');
+                            } else {
+                                const displayMinutes = Math.floor(timerTime / 60);
+                                const displaySeconds = timerTime % 60;
+                                document.getElementById('t-display').textContent = 
+                                    `${displayMinutes.toString().padStart(2, '0')}:${displaySeconds.toString().padStart(2, '0')}`;
+                            }
+                        }, 1000);
+                    }
+                }
+            });
+
+            document.getElementById('t-reset').addEventListener('click', function() {
+                clearInterval(timerInterval);
+                timerRunning = false;
+                document.getElementById('t-start').textContent = 'Start';
+                document.getElementById('t-display').textContent = '00:00';
+                document.getElementById('t-min').value = '';
+                document.getElementById('t-sec').value = '';
+            });
+
+            // Stopwatch functionality
+            let stopwatchInterval;
+            let stopwatchTime = 0;
+            let stopwatchRunning = false;
+
+            document.getElementById('sw-start').addEventListener('click', function() {
+                if (!stopwatchRunning) {
+                    stopwatchRunning = true;
+                    this.textContent = 'Pause';
+                    
+                    stopwatchInterval = setInterval(function() {
+                        stopwatchTime += 10;
+                        
+                        const minutes = Math.floor(stopwatchTime / 60000);
+                        const seconds = Math.floor((stopwatchTime % 60000) / 1000);
+                        const milliseconds = Math.floor((stopwatchTime % 1000) / 10);
+                        
+                        document.getElementById('sw-display').textContent = 
+                            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
+                    }, 10);
+                } else {
+                    clearInterval(stopwatchInterval);
+                    stopwatchRunning = false;
+                    document.getElementById('sw-start').textContent = 'Resume';
+                }
+            });
+
+            document.getElementById('sw-stop').addEventListener('click', function() {
+                clearInterval(stopwatchInterval);
+                stopwatchRunning = false;
+                document.getElementById('sw-start').textContent = 'Start';
+            });
+
+            document.getElementById('sw-reset').addEventListener('click', function() {
+                clearInterval(stopwatchInterval);
+                stopwatchRunning = false;
+                stopwatchTime = 0;
+                document.getElementById('sw-display').textContent = '00:00.000';
+                document.getElementById('sw-start').textContent = 'Start';
+            });
+
+            // Alarm functionality
+            const alarmList = document.getElementById('alarm-list');
+            let alarms = [];
+
+            document.getElementById('add-alarm').addEventListener('click', function() {
+                const alarmTime = document.getElementById('alarm-time').value;
+                
+                if (alarmTime) {
+                    const alarm = {
+                        id: Date.now(),
+                        time: alarmTime,
+                        active: true
+                    };
+                    
+                    alarms.push(alarm);
+                    renderAlarms();
+                    document.getElementById('alarm-time').value = '';
+                }
+            });
+
+            function renderAlarms() {
+                alarmList.innerHTML = '';
+                
+                alarms.forEach(alarm => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        ${alarm.time} 
+                        <button onclick="toggleAlarm(${alarm.id})">${alarm.active ? 'Disable' : 'Enable'}</button>
+                        <button onclick="removeAlarm(${alarm.id})">Remove</button>
+                    `;
+                    alarmList.appendChild(li);
+                });
+            }
+
+            window.toggleAlarm = function(id) {
+                alarms = alarms.map(alarm => 
+                    alarm.id === id ? {...alarm, active: !alarm.active} : alarm
+                );
+                renderAlarms();
+            };
+
+            window.removeAlarm = function(id) {
+                alarms = alarms.filter(alarm => alarm.id !== id);
+                renderAlarms();
+            };
+
+            // Check alarms every second
+            setInterval(function() {
+                const now = new Date();
+                const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+                
+                alarms.forEach(alarm => {
+                    if (alarm.active && alarm.time === currentTime) {
+                        document.getElementById('done').style.display = 'block';
+                        setTimeout(() => {
+                            document.getElementById('done').style.display = 'none';
+                        }, 5000);
+                    }
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
